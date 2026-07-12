@@ -1,0 +1,20 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "drape-backend",
+      "runtimeExecutable": "backend/.venv/bin/uvicorn",
+      "runtimeArgs": ["app:app", "--app-dir", "backend", "--port", "8321"],
+      "env": { "YOUCAM_MOCK": "1" },
+      "port": 8321,
+      "autoPort": false
+    },
+    {
+      "name": "drape-frontend",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "frontend"],
+      "port": 5321,
+      "autoPort": false
+    }
+  ]
+}

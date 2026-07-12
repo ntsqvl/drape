@@ -1,0 +1,86 @@
+[
+  {
+    "id": "rust-crew",
+    "name": "Rust crew tee",
+    "hex": "#b5651d",
+    "price": 38,
+    "image": "catalog/rust-crew.jpg"
+  },
+  {
+    "id": "wine-rib-top",
+    "name": "Wine ribbed top",
+    "hex": "#500b28",
+    "price": 52,
+    "image": "catalog/wine-rib-top.jpg"
+  },
+  {
+    "id": "powder-boxy-tee",
+    "name": "Powder blue boxy tee",
+    "hex": "#aecbeb",
+    "price": 34,
+    "image": "catalog/powder-boxy-tee.jpg"
+  },
+  {
+    "id": "coral-scoop",
+    "name": "Bright coral scoop",
+    "hex": "#ff6f61",
+    "price": 42,
+    "image": "catalog/coral-scoop.jpg"
+  },
+  {
+    "id": "slate-longsleeve",
+    "name": "Slate long sleeve",
+    "hex": "#6e7f99",
+    "price": 48,
+    "image": "catalog/slate-longsleeve.jpg"
+  },
+  {
+    "id": "golden-crew",
+    "name": "Golden yellow crew",
+    "hex": "#ffc94a",
+    "price": 36,
+    "image": "catalog/golden-crew.jpg"
+  },
+  {
+    "id": "army-utility-top",
+    "name": "Army green utility top",
+    "hex": "#4b5320",
+    "price": 58,
+    "image": "catalog/army-utility-top.jpg"
+  },
+  {
+    "id": "cobalt-tee",
+    "name": "Cobalt tee",
+    "hex": "#003da5",
+    "price": 40,
+    "image": "catalog/cobalt-tee.jpg"
+  },
+  {
+    "id": "peach-drape-top",
+    "name": "Peach drape top",
+    "hex": "#ffd1a9",
+    "price": 44,
+    "image": "catalog/peach-drape-top.jpg"
+  },
+  {
+    "id": "camel-knit",
+    "name": "Camel knit tee",
+    "hex": "#c2a878",
+    "price": 56,
+    "image": "catalog/camel-knit.jpg"
+  },
+  {
+    "id": "emerald-vneck",
+    "name": "Emerald v-neck",
+    "hex": "#00a86b",
+    "price": 46,
+    "image": "catalog/emerald-vneck.jpg"
+  },
+  {
+    "id": "mauve-relaxed",
+    "name": "Mauve relaxed tee",
+    "hex": "#b57ba6",
+    "price": 39,
+    "image": "catalog/mauve-relaxed.jpg"
+  }
+]

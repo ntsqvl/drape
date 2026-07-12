@@ -1,0 +1,88 @@
+{
+  "_comment": "Archetype facial colorings per 12-season color analysis literature. Hexes encode the standard verbal descriptions (e.g. 'True Autumn: golden tan skin, auburn hair, warm amber eyes'). These are labels for the FORMULA to hit, chosen from season descriptions -- not fitted to the code. eyebrow defaults to hair when omitted.",
+  "archetypes": [
+    { "season": "light_spring", "name": "golden blonde, light warm skin",
+      "skin": "#f6d6b2", "hair": "#d3a05f", "eye": "#86a5c2", "lip": "#d98a70" },
+    { "season": "light_spring", "name": "strawberry blonde, ivory-peach skin",
+      "skin": "#f8d9bb", "hair": "#c98d5a", "eye": "#7ea18a", "lip": "#dd9078" },
+    { "season": "light_spring", "name": "light golden brown hair, warm fair skin",
+      "skin": "#f3d0a8", "hair": "#b08050", "eye": "#8aa0b5", "lip": "#d78d72" },
+
+    { "season": "true_spring", "name": "golden brown hair, warm beige skin",
+      "skin": "#ecc092", "hair": "#8f5a2b", "eye": "#6f8a4d", "lip": "#d17a58" },
+    { "season": "true_spring", "name": "copper hair, golden skin",
+      "skin": "#eebe8e", "hair": "#a35a24", "eye": "#5f86a5", "lip": "#d47c55" },
+    { "season": "true_spring", "name": "warm blonde, golden beige skin",
+      "skin": "#efc79c", "hair": "#c08a45", "eye": "#8a6a35", "lip": "#d68060" },
+
+    { "season": "bright_spring", "name": "medium warm brown hair, ivory skin, bright eyes",
+      "skin": "#f0c8a0", "hair": "#6b4526", "eye": "#4a7ab5", "lip": "#d3654e" },
+    { "season": "bright_spring", "name": "dark golden brown hair, warm light skin",
+      "skin": "#f2cba6", "hair": "#5d3d22", "eye": "#3f8a70", "lip": "#d05f4a" },
+    { "season": "bright_spring", "name": "chestnut hair, peach skin, clear blue eyes",
+      "skin": "#f4cea9", "hair": "#71482a", "eye": "#4a80c0", "lip": "#d66a52" },
+
+    { "season": "light_summer", "name": "ash blonde, light rosy skin",
+      "skin": "#f2d4cc", "hair": "#c4b092", "eye": "#8ba3b8", "lip": "#c98090" },
+    { "season": "light_summer", "name": "light ash brown, pink-fair skin",
+      "skin": "#f4d8ce", "hair": "#a99478", "eye": "#7f9cb5", "lip": "#cc8595" },
+    { "season": "light_summer", "name": "cool blonde, porcelain-rose skin",
+      "skin": "#f5dcd3", "hair": "#cbb89c", "eye": "#93aebe", "lip": "#c77e8e" },
+
+    { "season": "true_summer", "name": "ash brown hair, rosy beige skin",
+      "skin": "#e5bcae", "hair": "#7f7264", "eye": "#7590a8", "lip": "#bd6f82" },
+    { "season": "true_summer", "name": "cool medium brown, soft rose skin",
+      "skin": "#e8c0b2", "hair": "#6f6255", "eye": "#6a86a0", "lip": "#c07386" },
+    { "season": "true_summer", "name": "dark ash blonde, cool beige skin",
+      "skin": "#e3b9ab", "hair": "#8d7d68", "eye": "#7d95a8", "lip": "#ba6c7e" },
+
+    { "season": "soft_summer", "name": "mousy ash brown, muted rose-beige skin",
+      "skin": "#dcb0a3", "hair": "#6f6154", "eye": "#7f8f87", "lip": "#b47280" },
+    { "season": "soft_summer", "name": "gray-brown hair, neutral cool skin",
+      "skin": "#dfb8a6", "hair": "#7a6c60", "eye": "#8a9490", "lip": "#b06e7c" },
+    { "season": "soft_summer", "name": "ashy dark blonde, soft neutral skin",
+      "skin": "#deb6ab", "hair": "#857465", "eye": "#768c94", "lip": "#b7717f" },
+
+    { "season": "soft_autumn", "name": "golden light brown hair, warm soft beige skin",
+      "skin": "#dcae86", "hair": "#8a6a44", "eye": "#7a6d4f", "lip": "#c07a62" },
+    { "season": "soft_autumn", "name": "dark golden blonde, muted warm skin",
+      "skin": "#dfb28c", "hair": "#9a7a4e", "eye": "#6f7a55", "lip": "#c37e66" },
+    { "season": "soft_autumn", "name": "light chestnut, warm beige skin",
+      "skin": "#d9aa82", "hair": "#7f5f3e", "eye": "#8a7550", "lip": "#bd7660" },
+
+    { "season": "true_autumn", "name": "auburn hair, golden tan skin",
+      "skin": "#c98e5f", "hair": "#6e3b1c", "eye": "#6b4a2a", "lip": "#b56548" },
+    { "season": "true_autumn", "name": "chestnut hair, warm golden skin",
+      "skin": "#cd9265", "hair": "#5f371a", "eye": "#7a5228", "lip": "#b8684a" },
+    { "season": "true_autumn", "name": "warm dark blonde, golden medium skin",
+      "skin": "#c68a58", "hair": "#8a5e2e", "eye": "#5f8a55", "lip": "#b26244" },
+
+    { "season": "deep_autumn", "name": "near-black warm hair, bronze skin",
+      "skin": "#9b6238", "hair": "#40260f", "eye": "#4a3220", "lip": "#a05540" },
+    { "season": "deep_autumn", "name": "dark chocolate hair, deep golden skin",
+      "skin": "#8f5a32", "hair": "#38200d", "eye": "#3f2a18", "lip": "#9a5138" },
+    { "season": "deep_autumn", "name": "espresso hair, deep warm tan",
+      "skin": "#a4693d", "hair": "#452a12", "eye": "#54371f", "lip": "#a5583e" },
+
+    { "season": "bright_winter", "name": "near-black hair, cool porcelain skin, bright blue eyes",
+      "skin": "#eccfc6", "hair": "#241812", "eye": "#3e6fae", "lip": "#c25a72" },
+    { "season": "bright_winter", "name": "dark cool brown hair, light neutral-cool skin",
+      "skin": "#e9cabe", "hair": "#2e2018", "eye": "#2f7f8a", "lip": "#c05570" },
+    { "season": "bright_winter", "name": "black hair, fair rosy skin, clear green eyes",
+      "skin": "#efd3ca", "hair": "#1d1410", "eye": "#3f8a5f", "lip": "#c65c75" },
+
+    { "season": "true_winter", "name": "black hair, cool beige skin",
+      "skin": "#d8ab9c", "hair": "#17100c", "eye": "#3a2a20", "lip": "#b5546e" },
+    { "season": "true_winter", "name": "blue-black hair, cool olive skin",
+      "skin": "#c69c8a", "hair": "#141013", "eye": "#2f2018", "lip": "#af5068" },
+    { "season": "true_winter", "name": "dark cool brown hair, rosy medium skin",
+      "skin": "#d0a492", "hair": "#231813", "eye": "#4f6a8f", "lip": "#b2526b" },
+
+    { "season": "deep_winter", "name": "black hair, deep cool skin",
+      "skin": "#8a5a45", "hair": "#120b07", "eye": "#2f1f1a", "lip": "#9c4a55" },
+    { "season": "deep_winter", "name": "black-brown hair, deep neutral-cool skin",
+      "skin": "#7f5240", "hair": "#180f0a", "eye": "#291b15", "lip": "#94454f" },
+    { "season": "deep_winter", "name": "black hair, rich deep skin",
+      "skin": "#6e4536", "hair": "#100a06", "eye": "#241713", "lip": "#8e414b" }
+  ]
+}

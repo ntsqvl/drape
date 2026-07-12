@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+.cache/
+*.egg-info/
+.pytest_cache/
+node_modules/
+dist/
+
+# user-generated data: never ship someone's face or verdict to the repo
+backend/assets/renders/
+backend/assets/uploads/
+backend/assets/cards/
+backend/assets/garments/
+backend/.sessions/
+backend/.metrics/
