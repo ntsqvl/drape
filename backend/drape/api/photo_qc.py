@@ -36,7 +36,7 @@ def check(img: Image.Image) -> list[dict]:
         })
 
     small = img.convert("RGB").resize((64, 64), Image.LANCZOS)
-    pixels = list(small.getdata())
+    pixels = list(small.get_flattened_data() if hasattr(small, "get_flattened_data") else small.getdata())
     luma = sum(0.299 * r + 0.587 * g + 0.114 * b for r, g, b in pixels) / len(pixels)
     if luma < DARK_LUMA:
         issues.append({

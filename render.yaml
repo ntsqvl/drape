@@ -1,0 +1,16 @@
+# Render.com blueprint: connect the repo, set YOUCAM_API_KEY, deploy.
+services:
+  - type: web
+    name: drape
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/mode
+    envVars:
+      - key: YOUCAM_API_KEY
+        sync: false # set in the Render dashboard; never in the repo
+      - key: YOUCAM_MOCK
+        value: "0"
+      - key: DRAPE_UNIT_RESERVE
+        value: "150"
+      - key: DRAPE_LIVE_SESSIONS_PER_IP
+        value: "4"

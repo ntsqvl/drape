@@ -20,7 +20,7 @@ import uuid
 from dataclasses import asdict
 from pathlib import Path
 
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from PIL import Image
@@ -55,7 +55,25 @@ CATALOG = json.loads((config.BACKEND_ROOT / "drape" / "catalog" / "catalog.json"
 # not affected.
 SESSION_COST_EST = 45.0
 UNIT_RESERVE = float(os.environ.get("DRAPE_UNIT_RESERVE", "150"))
+# On a public deployment, one curious visitor must not be able to drain the
+# account: live upload sessions are capped per client IP per day. Demo
+# personas are exempt (they never touch the API).
+LIVE_SESSIONS_PER_IP = int(os.environ.get("DRAPE_LIVE_SESSIONS_PER_IP", "4"))
+_ip_sessions: dict[str, list[float]] = {}
 _units_cache: dict = {"value": None, "at": 0.0}
+
+
+def _live_session_allowed(ip: str) -> bool:
+    import time as _time
+
+    cutoff = _time.time() - 86400
+    log = [t for t in _ip_sessions.get(ip, []) if t > cutoff]
+    if len(log) >= LIVE_SESSIONS_PER_IP:
+        _ip_sessions[ip] = log
+        return False
+    log.append(_time.time())
+    _ip_sessions[ip] = log
+    return True
 
 
 def _remaining_units(client: YouCamClient | None = None) -> float | None:
@@ -144,7 +162,7 @@ def _run_session(sid: str, selfie: Path, mock: bool | None = None) -> None:
 
 @app.post("/api/session")
 async def create_session(
-    file: UploadFile | None = File(None), persona: str | None = Form(None)
+    request: Request, file: UploadFile | None = File(None), persona: str | None = Form(None)
 ) -> dict:
     if file is None and persona is None:
         raise HTTPException(400, "Upload a selfie or pick a demo persona.")
@@ -159,6 +177,11 @@ async def create_session(
         mock = True
     else:
         mock = None  # follow server mode; live uploads spend units
+        if not config.MOCK and not _live_session_allowed(request.client.host if request.client else "unknown"):
+            raise HTTPException(
+                429,
+                "You've reached today's limit of live sessions. The demo personas below are unlimited -- or come back tomorrow.",
+            )
         units = _remaining_units()
         if units is not None and units < UNIT_RESERVE + SESSION_COST_EST:
             raise HTTPException(

@@ -305,6 +305,12 @@ em { font-style: italic; }
   .fan-card:hover, .fan-open { transform: translateY(-6px); }
 }
 
+@media (max-width: 480px) {
+  .masthead { padding: 20px 0 14px; }
+  .masthead-note { display: none; } /* the wordmark carries it on phones */
+  .verdict-actions { flex-direction: column; align-items: stretch; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }

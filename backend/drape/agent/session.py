@@ -40,8 +40,28 @@ FACE_SMALL_CODES = {
 }
 FACE_CROP_FRACTIONS = (0.70, 0.55)
 from drape.colorlab import extract, seasons
-from drape.colorlab.lab import hex_to_lab
+from drape.colorlab.lab import delta_e, hex_to_lab
 from drape.colorlab.scoring import DrapeScore, FaceProfile, score_drape
+
+
+def _log_drift(drape_id: str, requested: str, measured: str, drift: float, *, mock: bool) -> None:
+    """Append requested-vs-measured color drift per render: every live
+    session grows the calibration dataset for the extraction pipeline."""
+    if mock:
+        return
+    import json
+    import time
+
+    path = config.BACKEND_ROOT / ".metrics" / "drift.jsonl"
+    path.parent.mkdir(exist_ok=True)
+    with path.open("a") as fh:
+        fh.write(
+            json.dumps(
+                {"ts": int(time.time()), "drape": drape_id, "requested": requested,
+                 "measured": measured, "delta_e": drift}
+            )
+            + "\n"
+        )
 
 SIGNATURE = seasons.SIGNATURE  # round-3 signature drapes live with the season data
 
@@ -141,6 +161,7 @@ class DrapingSession:
         render = cloth_vto.try_on(self.client, self._cloth_handle, self._drape_path(drape_id))
         measured_hex, measured_lab = extract.garment_color(render, skin=profile.skin)
         score = score_drape(profile, measured_lab, skin_state)
+        drift = round(delta_e(measured_lab, hex_to_lab(hex_)), 1)
         self.log(
             "render",
             f"draped {name}: scored {score.score}",
@@ -148,9 +169,11 @@ class DrapingSession:
             name=name,
             requested=hex_,
             measured=measured_hex,
+            drift=drift,
             score=score.score,
             render=str(render),
         )
+        _log_drift(drape_id, hex_, measured_hex, drift, mock=self.client.mock)
         return DrapeResult(drape_id, hex_, name, measured_hex, str(render), score)
 
     def _render_batch(

@@ -75,7 +75,33 @@ def garment_color(render: str | Path, skin: LabColor | None = None) -> tuple[str
         and clusters[1][0] >= RUNNER_UP_RATIO * top[0]
     ):
         top = clusters[1]
-    return rgb_to_hex(top[1]), top[2]
+    return rgb_to_hex(top[1]), _shading_corrected(region, top[2])
+
+
+# Fabric folds shade a real render, dragging the dominant cluster's lightness
+# well below the fabric's true color, while hue/chroma stay stable. Keep the
+# cluster's a*/b*, but estimate L from an upper percentile of the pixels that
+# belong to the garment.
+GARMENT_PIXEL_DELTA_E = 22.0
+L_PERCENTILE = 0.75
+_SAMPLE = 72  # downsample edge for per-pixel Lab conversion
+
+
+def _pixels(img: Image.Image):
+    return img.get_flattened_data() if hasattr(img, "get_flattened_data") else img.getdata()
+
+
+def _shading_corrected(region: Image.Image, cluster: LabColor) -> LabColor:
+    small = region.resize((_SAMPLE, _SAMPLE), Image.LANCZOS)
+    ls = sorted(
+        lab.L
+        for rgb in _pixels(small)
+        if delta_e((lab := rgb_to_lab(rgb[:3])), cluster) < GARMENT_PIXEL_DELTA_E
+    )
+    if len(ls) < 20:  # too few garment pixels to estimate; trust the cluster
+        return cluster
+    l_est = ls[min(len(ls) - 1, int(len(ls) * L_PERCENTILE))]
+    return LabColor(L=l_est, a=cluster.a, b=cluster.b)
 
 
 # Center region for e-commerce product shots: the garment fills the middle,

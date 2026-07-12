@@ -95,6 +95,20 @@ YOUCAM_MOCK=1 backend/.venv/bin/uvicorn app:app --app-dir backend --port 8321
 npm install --prefix frontend && npm run dev --prefix frontend   # -> http://localhost:5321
 ```
 
+## Deploy
+
+Single Docker service; FastAPI serves the built frontend.
+
+```bash
+docker build -t drape . && docker run -p 8000:8000 -e YOUCAM_API_KEY=... drape
+```
+
+Or on Render: connect this repo (it reads `render.yaml`), set `YOUCAM_API_KEY`
+in the dashboard, deploy. Public-deployment protections are on by default:
+demo personas cost nothing, live upload sessions are capped per IP per day
+(`DRAPE_LIVE_SESSIONS_PER_IP`), and the reserve floor stops spending before
+the account empties.
+
 Every API response is disk-cached by (image, feature, params): re-running a
 pipeline on the same selfie costs 0 units.
 
