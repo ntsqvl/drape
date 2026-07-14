@@ -6,6 +6,15 @@ A personal color analysis ("12-season" draping session) costs $150–300 and a
 studio appointment. DRAPE runs it from one selfie — and shows you the drapes
 **on your own body** instead of holding fabric near your chin.
 
+![The verdict](docs/screenshots/03-verdict.png)
+
+| | | |
+|---|---|---|
+| ![Upload](docs/screenshots/01-upload.png) | ![Session](docs/screenshots/02-session-trace.png) | ![Shop](docs/screenshots/05-shop.png) |
+
+*(Screenshots show the built-in demo personas; regenerate with
+`node frontend/tools/screenshots.mjs` against running dev servers.)*
+
 ## How it works
 
 An adaptive agent runs the session the way a human colorist does — probe,
