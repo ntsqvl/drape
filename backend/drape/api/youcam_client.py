@@ -195,11 +195,14 @@ class YouCamClient:
         *,
         src: FileHandle | None = None,
         cache_extra: str = "",
+        force: bool = False,
     ) -> TaskResult:
         """Create a task, poll to completion, return the final payload.
 
         `src` (if given) must be a FileHandle uploaded for this same feature
         (gotcha #3). Results are disk-cached; a cache hit costs 0 units.
+        `force=True` bypasses the cache read (still refreshes the entry) --
+        used when a cached result URL has expired (presigned links last ~2h).
         """
         if src is not None:
             if src.feature != feature:
@@ -220,7 +223,7 @@ class YouCamClient:
             src.digest if src is not None else "",
             cache_extra,
         )
-        cached = self._cache_get(key)
+        cached = None if force else self._cache_get(key)
         if cached is not None:
             return TaskResult(feature, cached.get("task_id", "cached"), cached["payload"])
 
