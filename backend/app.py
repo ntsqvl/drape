@@ -76,6 +76,14 @@ def _live_session_allowed(ip: str) -> bool:
     return True
 
 
+def _release_live_slot(ip: str | None) -> None:
+    """Failed sessions consume no units, so they give their cap slot back --
+    a rejected photo shouldn't eat into anyone's daily allowance."""
+    log = _ip_sessions.get(ip or "")
+    if log:
+        log.pop()
+
+
 def _remaining_units(client: YouCamClient | None = None) -> float | None:
     import time as _time
 
@@ -153,9 +161,11 @@ def _run_session(sid: str, selfie: Path, mock: bool | None = None) -> None:
         entry["status"] = "error"
         entry["error"] = ERROR_COPY.get(exc.error_code or "", str(exc))
         entry["error_code"] = exc.error_code
+        _release_live_slot(entry.get("ip"))
     except Exception as exc:  # surface anything else honestly
         entry["status"] = "error"
         entry["error"] = str(exc)
+        _release_live_slot(entry.get("ip"))
     finally:
         _persist(sid)
 
@@ -175,9 +185,11 @@ async def create_session(
         if not selfie.exists():
             raise HTTPException(404, f"No demo persona named {persona!r}.")
         mock = True
+        ip = None  # personas never hit the API, so they never hold a slot
     else:
         mock = None  # follow server mode; live uploads spend units
-        if not config.MOCK and not _live_session_allowed(request.client.host if request.client else "unknown"):
+        ip = request.client.host if request.client else "unknown"
+        if not config.MOCK and not _live_session_allowed(ip):
             raise HTTPException(
                 429,
                 "You've reached today's limit of live sessions. The demo personas below are unlimited -- or come back tomorrow.",
@@ -208,6 +220,7 @@ async def create_session(
         "verdict": None,
         "selfie": str(selfie),
         "mock": bool(mock) if mock is not None else config.MOCK,
+        "ip": ip,
     }
     threading.Thread(target=_run_session, args=(sid, selfie, mock), daemon=True).start()
     return {"session_id": sid}
